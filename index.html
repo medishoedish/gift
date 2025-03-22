@@ -50,11 +50,23 @@
         <p id="message"></p>
     </div>
 
-    <div id="song-page" class="hidden">
-        <audio id="song" autoplay>
-            <source src="fade-into-you.mp3" type="audio/mpeg">
-        </audio>
-        <br>
+ <div id="song-page" class="hidden">
+    <audio id="song">
+        <source src="fade-into-you.mp3" type="audio/mpeg">
+    </audio>
+    <br>
+</div>
+
+<script>
+    function showSongPage() {
+        document.getElementById("song-page").classList.remove("hidden");  
+        document.getElementById("song").play(); // The song will play only when this function is triggered
+    }
+</script>
+
+<!-- Button to trigger the song page -->
+<button onclick="showSongPage()">Tap to continue</button>
+
         <p class="hearts">💖💖💖</p>
         <img src="your-drawing.jpg" alt="Your Drawing">
         <br>
