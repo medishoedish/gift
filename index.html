@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anniversary Gift</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #b3e0ff;
+            text-align: center;
+        }
+        .hidden {
+            display: none;
+        }
+        #password-page, #song-page, #comics-page, #letter-page {
+            padding: 50px;
+        }
+        button {
+            padding: 10px 20px;
+            margin-top: 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #ff66b2;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        embed {
+            width: 80%;
+            height: 500px;
+        }
+        .hearts {
+            font-size: 24px;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="password-page">
+        <h2>Enter the Password</h2>
+        <p class="hearts">❤️❤️❤️</p>
+        <p id="hint">Hint: 4 words</p>
+        <input type="text" id="password-input">
+        <button onclick="checkPassword()">Submit</button>
+        <p id="message"></p>
+    </div>
+
+    <div id="song-page" class="hidden">
+        <audio id="song" autoplay>
+            <source src="fade-into-you.mp3" type="audio/mpeg">
+        </audio>
+        <br>
+        <p class="hearts">💖💖💖</p>
+        <img src="your-drawing.jpg" alt="Your Drawing">
+        <br>
+        <button onclick="nextPage('comics-page')">Tap to see gift</button>
+    </div>
+
+    <div id="comics-page" class="hidden">
+        <p class="hearts">💘💘💘</p>
+        <embed src="your-comic.pdf" type="application/pdf">
+        <br>
+        <button onclick="nextPage('letter-page')">Tap to see final gift</button>
+    </div>
+
+    <div id="letter-page" class="hidden">
+        <h2 class="hearts">❤️ Dear my Janym ❤️</h2>
+        <p>I can’t believe that our love has already lasted one year. A relationship that no one expected to last this long has only grown more beautiful the more time we spend together.</p>
+        <p>I never thought I was capable of having a relationship that could withstand hardships and build such a strong bond, especially while being in a long-distance relationship for so long. I never knew I could love someone this much—spending my hours and days just to bring you a little happiness. I never knew I could truly forgive someone for their mistakes, but I learned that after I met you.</p>
+        <p>My whole life, I longed for love. Sometimes, I even tried to take steps toward it, but it never felt serious—I was always afraid. Love seemed like something impossible and painful. I won’t deny that we’ve had difficult moments in our relationship, but even after those phases, we are still here, growing together. We are so much stronger than before. Maybe those tough times were not just about growing as individuals but about growing as a couple.</p>
+        <p>Happy one year together. 💙</p>
+    </div>
+
+    <script>
+        let attempts = 0;
+        function checkPassword() {
+            const input = document.getElementById("password-input").value;
+            const message = document.getElementById("message");
+            const hint = document.getElementById("hint");
+
+            if (input === "bubi") {
+                document.getElementById("password-page").classList.add("hidden");
+                document.getElementById("song-page").classList.remove("hidden");
+                document.getElementById("song").play();
+            } else {
+                attempts++;
+                if (attempts === 1) message.textContent = "You can do it!";
+                else if (attempts === 2) message.textContent = "Almost!";
+                else if (attempts === 3) hint.textContent = "Hint: bu+bi";
+            }
+        }
+
+        function nextPage(pageId) {
+            document.querySelectorAll("div").forEach(div => div.classList.add("hidden"));
+            document.getElementById(pageId).classList.remove("hidden");
+        }
+    </script>
+</body>
+</html>
+
