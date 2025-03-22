@@ -3,115 +3,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anniversary Gift</title>
+    <title>Happy Anniversary</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #b3e0ff;
             text-align: center;
+            background-color: lightblue;
         }
         .hidden {
             display: none;
         }
-        #password-page, #song-page, #comics-page, #letter-page {
-            padding: 50px;
-        }
         button {
             padding: 10px 20px;
-            margin-top: 20px;
-            font-size: 16px;
-            cursor: pointer;
-            background-color: #ff66b2;
-            color: white;
+            background-color: pink;
             border: none;
-            border-radius: 5px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
         }
-        img {
-            max-width: 100%;
-            height: auto;
+        button:hover {
+            background-color: hotpink;
         }
-        embed {
+        #letter-page {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
             width: 80%;
-            height: 500px;
-        }
-        .hearts {
-            font-size: 24px;
-            color: red;
+            margin: auto;
         }
     </style>
 </head>
 <body>
+
+    <!-- 🔒 Password Page -->
     <div id="password-page">
-        <h2>Enter the Password</h2>
-        <p class="hearts">❤️❤️❤️</p>
-        <p id="hint">Hint: 4 words</p>
-        <input type="text" id="password-input">
+        <h2>Enter the 4-word password</h2>
+        <input type="text" id="password-input" placeholder="Type here...">
         <button onclick="checkPassword()">Submit</button>
-        <p id="message"></p>
+        <p id="hint"></p>
     </div>
 
- <div id="song-page" class="hidden">
-    <audio id="song">
-        <source src="fade-into-you.mp3" type="audio/mpeg">
-    </audio>
-    <br>
-</div>
-
-<script>
-    function showSongPage() {
-        document.getElementById("song-page").classList.remove("hidden");  
-        document.getElementById("song").play(); // The song will play only when this function is triggered
-    }
-</script>
-
-<!-- Button to trigger the song page -->
-<button onclick="showSongPage()">Tap to continue</button>
-
-        <p class="hearts">💖💖💖</p>
-        <img src="your-drawing.jpg" alt="Your Drawing">
+    <!-- 🎶 Song Page -->
+    <div id="song-page" class="hidden">
+        <h2>Tap to continue</h2>
+        <audio id="song">
+            <source src="fade-into-you.mp3" type="audio/mpeg">
+        </audio>
         <br>
-        <button onclick="nextPage('comics-page')">Tap to see gift</button>
+        <img src="your-drawing.jpg" alt="My Drawing" width="300px">
+        <br><br>
+        <button onclick="showNextPage('song-page', 'pdf-page')">Tap to see gift</button>
     </div>
 
-    <div id="comics-page" class="hidden">
-        <p class="hearts">💘💘💘</p>
-        <embed src="your-comic.pdf" type="application/pdf">
-        <br>
-        <button onclick="nextPage('letter-page')">Tap to see final gift</button>
+    <!-- 📖 PDF (Comic) Page -->
+    <div id="pdf-page" class="hidden">
+        <h2>My Comic</h2>
+        <embed src="your-comic.pdf" type="application/pdf" width="90%" height="600px">
+        <br><br>
+        <button onclick="showNextPage('pdf-page', 'letter-page')">Tap to see final gift</button>
     </div>
 
+    <!-- 💌 Final Letter Page -->
     <div id="letter-page" class="hidden">
-        <h2 class="hearts">❤️ Dear my Janym ❤️</h2>
-        <p>I can’t believe that our love has already lasted one year. A relationship that no one expected to last this long has only grown more beautiful the more time we spend together.</p>
-        <p>I never thought I was capable of having a relationship that could withstand hardships and build such a strong bond, especially while being in a long-distance relationship for so long. I never knew I could love someone this much—spending my hours and days just to bring you a little happiness. I never knew I could truly forgive someone for their mistakes, but I learned that after I met you.</p>
-        <p>My whole life, I longed for love. Sometimes, I even tried to take steps toward it, but it never felt serious—I was always afraid. Love seemed like something impossible and painful. I won’t deny that we’ve had difficult moments in our relationship, but even after those phases, we are still here, growing together. We are so much stronger than before. Maybe those tough times were not just about growing as individuals but about growing as a couple.</p>
-        <p>Happy one year together. 💙</p>
+        <h2>Dear my Janym,</h2>
+        <p>
+            I can’t believe that our love has already lasted one year. A relationship that no one expected to last this long has only grown more beautiful the more time we spend together.  
+            <br><br>
+            I never thought I was capable of having a relationship that could withstand hardships and build such a strong bond, especially while being in a long-distance relationship for so long. I never knew I could love someone this much—spending my hours and days just to bring you a little happiness. I never knew I could truly forgive someone for their mistakes, but I learned that after I met you.  
+            <br><br>
+            My whole life, I longed for love. Sometimes, I even tried to take steps toward it, but it never felt serious—I was always afraid. Love seemed like something impossible and painful. I won’t deny that we’ve had difficult moments in our relationship, but even after those phases, we are still here, growing together. We are so much stronger than before. Maybe those tough times were not just about growing as individuals but about growing as a couple.  
+            <br><br>
+            Happy one year together. 💙  
+        </p>
     </div>
 
+    <!-- 🛠 JavaScript -->
     <script>
         let attempts = 0;
-        function checkPassword() {
-            const input = document.getElementById("password-input").value;
-            const message = document.getElementById("message");
-            const hint = document.getElementById("hint");
 
-            if (input === "bubi") {
-                document.getElementById("password-page").classList.add("hidden");
-                document.getElementById("song-page").classList.remove("hidden");
-                document.getElementById("song").play();
+        function checkPassword() {
+            let password = document.getElementById("password-input").value;
+            let hint = document.getElementById("hint");
+
+            if (password === "bubi") {
+                document.getElementById("password-page").style.display = "none";
+                document.getElementById("song-page").style.display = "block"; 
+                document.getElementById("song").play(); // Play song after correct password
             } else {
                 attempts++;
-                if (attempts === 1) message.textContent = "You can do it!";
-                else if (attempts === 2) message.textContent = "Almost!";
-                else if (attempts === 3) hint.textContent = "Hint: bu+bi";
+                if (attempts == 1) {
+                    hint.innerText = "You can do it!";
+                } else if (attempts == 2) {
+                    hint.innerText = "Almost!";
+                } else if (attempts >= 3) {
+                    hint.innerText = "Hint: bu+bi";
+                }
             }
         }
 
-        function nextPage(pageId) {
-            document.querySelectorAll("div").forEach(div => div.classList.add("hidden"));
-            document.getElementById(pageId).classList.remove("hidden");
+        function showNextPage(currentPage, nextPage) {
+            document.getElementById(currentPage).style.display = "none";
+            document.getElementById(nextPage).style.display = "block";
         }
     </script>
+
 </body>
 </html>
-
